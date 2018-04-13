@@ -1,0 +1,10 @@
+﻿{
+  "ID": "03037627-A783-4562-8719-5775306C3E8E",
+  "Name": "Tools",
+  "Description": "各种工具",
+  "Author": "StardustDL",
+  "Version": "1.0.0",
+  "Website": "https://github.com/StardustDL",
+  "ExecuteFileName": "reCLI.Plugins.Tools.dll",
+  "PluginTypes": [ "reCLI.Plugins.Tools.ColorPlugin", "reCLI.Plugins.Tools.RandomPlugin", "reCLI.Plugins.Tools.Url" ]
+}

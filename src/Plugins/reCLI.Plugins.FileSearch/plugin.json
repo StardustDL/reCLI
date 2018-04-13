@@ -1,0 +1,10 @@
+﻿{
+  "ID": "ADCF4075-B389-49FC-9C0B-0D71FC2ACF97",
+  "Name": "File Search",
+  "Description": "文件搜索",
+  "Author": "StardustDL",
+  "Version": "1.0.0",
+  "Website": "https://github.com/StardustDL",
+  "ExecuteFileName": "reCLI.Plugins.FileSearch.dll",
+  "PluginTypes": [ "reCLI.Plugins.FileSearch.Main" ]
+}

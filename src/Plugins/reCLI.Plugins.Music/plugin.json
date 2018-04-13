@@ -1,0 +1,10 @@
+﻿{
+  "ID": "9C07142D-5C13-4A31-98F7-F658675AC0F6",
+  "Name": "Music",
+  "Description": "音乐",
+  "Author": "StardustDL",
+  "Version": "1.0.0",
+  "Website": "https://github.com/StardustDL",
+  "ExecuteFileName": "reCLI.Plugins.Music.dll",
+  "PluginTypes": [ "reCLI.Plugins.Music.Main" ]
+}

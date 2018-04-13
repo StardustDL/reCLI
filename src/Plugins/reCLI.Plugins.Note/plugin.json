@@ -1,0 +1,10 @@
+﻿{
+  "ID": "24F7D5D5-3C34-4854-AB3C-5429A18AA48C",
+  "Name": "Note",
+  "Description": "快速记录",
+  "Author": "StardustDL",
+  "Version": "1.0.0",
+  "Website": "https://github.com/StardustDL",
+  "ExecuteFileName": "reCLI.Plugins.Note.dll",
+  "PluginTypes": [ "reCLI.Plugins.Note.Main" ]
+}

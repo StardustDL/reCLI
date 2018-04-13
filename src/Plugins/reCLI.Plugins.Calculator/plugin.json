@@ -1,0 +1,10 @@
+﻿{
+  "ID": "42F1DBA1-3BF1-48B4-8F46-672013D218C7",
+  "Name": "Calculator",
+  "Description": "计算器",
+  "Author": "StardustDL",
+  "Version": "1.0.0",
+  "Website": "https://github.com/StardustDL",
+  "ExecuteFileName": "reCLI.Plugins.Calculator.dll",
+  "PluginTypes": [ "reCLI.Plugins.Calculator.Main" ]
+}

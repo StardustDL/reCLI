@@ -1,0 +1,10 @@
+﻿{
+  "ID": "7903D713-E2E0-4DF4-BAF3-26435CD143BA",
+  "Name": "Translator",
+  "Description": "查单词",
+  "Author": "StardustDL",
+  "Version": "1.0.0",
+  "Website": "https://github.com/StardustDL",
+  "ExecuteFileName": "reCLI.Plugins.Translator.dll",
+  "PluginTypes": [ "reCLI.Plugins.Translator.Main" ]
+}

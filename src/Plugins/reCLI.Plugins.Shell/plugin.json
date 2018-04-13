@@ -1,0 +1,10 @@
+﻿{
+  "ID": "B009D4DF-C33F-4881-A86D-219A9A3DCD42",
+  "Name": "Shell",
+  "Description": "命令行",
+  "Author": "StardustDL",
+  "Version": "1.0.0",
+  "Website": "https://github.com/StardustDL",
+  "ExecuteFileName": "reCLI.Plugins.Shell.dll",
+  "PluginTypes": [ "reCLI.Plugins.Shell.Main" ]
+}

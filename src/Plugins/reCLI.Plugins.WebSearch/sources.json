@@ -1,0 +1,64 @@
+﻿[
+  {
+    "Title": "Google",
+    "ActionKeyword": "google",
+    "IconPath": "Images/google.png",
+    "Url": "https://www.google.com/search?q={0}",
+    "Enabled": true
+  },
+  {
+    "Title": "Wikipedia",
+    "ActionKeyword": "wiki",
+    "IconPath": "Images/wiki.png",
+    "Url": "http://en.wikipedia.org/wiki/{0}",
+    "Enabled": true
+  },
+  {
+    "Title": "Github",
+    "ActionKeyword": "github",
+    "IconPath": "Images/github.png",
+    "Url": "https://github.com/search?q={0}",
+    "Enabled": true
+  },
+  {
+    "Title": "Wolframalpha",
+    "ActionKeyword": "wolframalpha",
+    "IconPath": "Images/wolframalpha.png",
+    "Url": "http://www.wolframalpha.com/input/?i={0}",
+    "Enabled": true
+  },
+  {
+    "Title": "Stackoverflow",
+    "ActionKeyword": "stackoverflow",
+    "IconPath": "Images/stackoverflow.png",
+    "Url": "http://stackoverflow.com/search?q={0}",
+    "Enabled": true
+  },
+  {
+    "Title": "Bing",
+    "ActionKeyword": "bing",
+    "IconPath": "Images/bing.png",
+    "URL": "https://www.bing.com/search?q={0}",
+    "Enabled": true
+  },
+  {
+    "Title": "Baidu",
+    "ActionKeyword": "baidu",
+    "IconPath": "Images/baidu.png",
+    "URL": "https://www.baidu.com/s?wd={0}",
+    "Enabled": true
+  },
+  {
+    "Title": "Bilibili",
+    "ActionKeyword": "bilibili",
+    "IconPath": "Images/bilibili.png",
+    "URL": "https://search.bilibili.com/all?keyword={0}",
+    "Enabled": true
+  },
+  {
+    "Title": "Easyicon",
+    "ActionKeyword": "easyicon",
+    "URL": "https://www.easyicon.net/iconsearch/{0}/",
+    "Enabled": true
+  }
+]

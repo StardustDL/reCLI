@@ -1,0 +1,10 @@
+﻿{
+  "ID": "9F579291-E980-4A5A-B1CD-D001190DB6DD",
+  "Name": "Hello World",
+  "Description": "Hello World",
+  "Author": "StardustDL",
+  "Version": "1.0.0",
+  "Website": "https://github.com/StardustDL",
+  "ExecuteFileName": "HelloWorld.dll",
+  "PluginTypes": [ "HelloWorld.Main" ]
+}

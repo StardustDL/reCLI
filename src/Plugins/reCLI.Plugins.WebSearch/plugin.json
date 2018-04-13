@@ -1,0 +1,10 @@
+﻿{
+  "ID": "C7A1E287-19B5-4D47-B031-413B631C29C9",
+  "Name": "Web Search",
+  "Description": "调用网络搜索",
+  "Author": "StardustDL",
+  "Version": "1.0.0",
+  "Website": "https://github.com/StardustDL",
+  "ExecuteFileName": "reCLI.Plugins.WebSearch.dll",
+  "PluginTypes": [ "reCLI.Plugins.WebSearch.Main" ]
+}
