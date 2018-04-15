@@ -85,7 +85,7 @@ namespace reCLI.Plugins.Tools
             return false;
         }
 
-        public Task<IEnumerable<Answer>> GlobalQuery(Query query, CancellationToken cancellationToken)
+        public Task<IEnumerable<Answer>> GlobalQuery(Query query)
         {
             IEnumerable<Answer> iter()
             {
@@ -119,7 +119,7 @@ namespace reCLI.Plugins.Tools
                 }
             }
 
-            return Task.Run(() => iter(),cancellationToken);
+            return Task.Run(() => iter());
         }
 
         public Task<bool> Initialize(PluginContext context)
@@ -134,7 +134,7 @@ namespace reCLI.Plugins.Tools
             });
         }
 
-        public Task<IEnumerable<Answer>> Query(Query query, CancellationToken cancellationToken) => GlobalQuery(query,cancellationToken);
+        public Task<IEnumerable<Answer>> Query(Query query) => GlobalQuery(query);
 
         public Task Uninitialize()
         {

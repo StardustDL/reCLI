@@ -147,7 +147,7 @@ namespace reCLI.Plugins.Shell
             }
         }
 
-        public Task<IEnumerable<Answer>> Query(Query query, CancellationToken cancellationToken)
+        public Task<IEnumerable<Answer>> Query(Query query)
         {
             IEnumerable<Answer> iter()
             {
@@ -175,7 +175,7 @@ namespace reCLI.Plugins.Shell
                     }
                 }
             }
-            return Task.Run(() => iter(), cancellationToken);
+            return Task.Run(() => iter());
         }
 
         public Task Uninitialize()

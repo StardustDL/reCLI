@@ -103,7 +103,7 @@ namespace reCLI
                 {
                     if (e.ChangedButton == MouseButton.Left)
                     {
-                        MainViewModel.Current.OpenAnswerCommand.Execute(null);
+                        MainViewModel.Current.OpenAnswerCommand.Execute(Core.InvokeKey.Enter);
                     }
                     else if (e.ChangedButton == MouseButton.Right)
                     {

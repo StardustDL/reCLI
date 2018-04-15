@@ -1,0 +1,10 @@
+﻿{
+  "ID": "7F3BFB07-CE2D-4363-B336-8ED662462CAE",
+  "Name": "Program",
+  "Description": "访问程序",
+  "Author": "StardustDL",
+  "Version": "1.0.0",
+  "Website": "https://github.com/StardustDL",
+  "ExecuteFileName": "reCLI.Plugins.Program.dll",
+  "PluginTypes": [ "reCLI.Plugins.Program.Main" ]
+}

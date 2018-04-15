@@ -30,6 +30,8 @@ namespace reCLI.ViewModel
 
         private IEnumerable<(IGlobalQuery, PluginMetadata)> globalPlugin;
 
+        public const int QueryPriorityBase = 300;
+
         #endregion
         
         #region Constructor
@@ -79,6 +81,8 @@ namespace reCLI.ViewModel
         public Visibility TipVisibility { get; set; }
 
         public Visibility MainWindowVisibility { get; set; }
+
+        public event EventHandler<(Answer,string)> RealCalled;
 
 #endregion
 
@@ -146,25 +150,25 @@ namespace reCLI.ViewModel
         {
             get
             {
-                if (_openAnswerCommand == null) _openAnswerCommand = new RelayCommand<int?>(async index =>
+                if (_openAnswerCommand == null) _openAnswerCommand = new RelayCommand<InvokeKey>(async index =>
                       {
                           var results = Answers;
-
-                          if (index.HasValue)
-                          {
-                              results.SelectedIndex = index.Value;
-                          }
 
                           var result = results.SelectedItem?.Answer;
                           if (result != null) // SelectedItem returns null if selection is empty.
                           {
-                              if(result.OriginalQuery!=null)ChangeQueryText(result.OriginalQuery, false);
+                              if (result.OriginalQuery != null) ChangeQueryText(result.OriginalQuery, false);
                               if (result.Execute != null)
                               {
                                   var res = await result.Execute(new ActionContext
                                   {
-                                      SpecialKeyState = GlobalHotkey.Instance.CheckModifiers()
+                                      InvokeKeys = index
                                   });
+
+                                  if (res?.IsRealCall != false)
+                                  {
+                                      RealCalled?.Invoke(this, (result,result.OriginalQuery??QueryText));
+                                  }
 
                                   if (res == null || res.AutoHide)
                                   {
@@ -256,8 +260,12 @@ namespace reCLI.ViewModel
                     Answers.Answers.StartRefresh();
                     await Task.WhenAll(plugins.Select(plugin => Task.Run(async () =>
                     {
-                        var results = await plugin.Item1.Query(query, _updateToken);
-                        foreach (var v in results) Answers.AddAnswer(v, plugin.Item2.ID);
+                        var results = await plugin.Item1.Query(query);
+                        foreach (var v in results)
+                        {
+                            v.Priority += QueryPriorityBase;
+                            Answers.AddAnswer(v, plugin.Item2.ID);
+                        }
                         if (/*Answers.Visbility != Visibility.Visible && */Answers.Answers.Count > 0)
                         {
                             Answers.SelectedIndex = 0;
@@ -268,7 +276,7 @@ namespace reCLI.ViewModel
 
                     await Task.WhenAll(globalPlugin.Select(plugin => Task.Run(async () =>
                     {
-                        var results = await plugin.Item1.GlobalQuery(query, _updateToken);
+                        var results = await plugin.Item1.GlobalQuery(query);
                         foreach (var v in results) Answers.AddAnswer(v, plugin.Item2.ID);
                         if (/*Answers.Visbility != Visibility.Visible && */Answers.Answers.Count > 0)
                         {

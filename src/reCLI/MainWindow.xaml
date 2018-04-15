@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:reCLI"
         mc:Ignorable="d"
         xmlns:vm="clr-namespace:reCLI.ViewModel"
+        xmlns:core="clr-namespace:reCLI.Core;assembly=reCLI.Core"
         Title="reCLI"
         Topmost="True"
         SizeToContent="Height"
@@ -28,12 +29,13 @@
         <KeyBinding Key="PageDown" Command="{Binding SelectNextPageCommand}"></KeyBinding>
         <KeyBinding Key="PageUp" Command="{Binding SelectPrevPageCommand}"></KeyBinding>-->
         <KeyBinding Key="F1" Command="{Binding StartHelpCommand}"></KeyBinding>
-        <KeyBinding Key="Enter" Command="{Binding OpenAnswerCommand}"></KeyBinding>
-        <KeyBinding Key="Enter" Modifiers="Alt" Command="{Binding OpenAnswerCommand}"></KeyBinding>
-        <KeyBinding Key="Enter" Modifiers="Ctrl" Command="{Binding OpenAnswerCommand}"></KeyBinding>
-        <KeyBinding Key="Enter" Modifiers="Shift" Command="{Binding OpenAnswerCommand}"></KeyBinding>
-        <KeyBinding Key="Enter" Modifiers="Windows" Command="{Binding OpenAnswerCommand}"></KeyBinding>
+        <KeyBinding Key="Enter" Command="{Binding OpenAnswerCommand}" CommandParameter="{x:Static core:InvokeKey.Enter}"></KeyBinding>
+        <KeyBinding Key="Enter" Modifiers="Alt" Command="{Binding OpenAnswerCommand}" CommandParameter="{x:Static core:InvokeKey.AltEnter}"></KeyBinding>
+        <KeyBinding Key="Enter" Modifiers="Ctrl" Command="{Binding OpenAnswerCommand}" CommandParameter="{x:Static core:InvokeKey.CtrlEnter}"></KeyBinding>
+        <KeyBinding Key="Enter" Modifiers="Shift" Command="{Binding OpenAnswerCommand}" CommandParameter="{x:Static core:InvokeKey.ShiftEnter}"></KeyBinding>
+        <KeyBinding Key="Enter" Modifiers="Windows" Command="{Binding OpenAnswerCommand}" CommandParameter="{x:Static core:InvokeKey.WinEnter}"></KeyBinding>
         <KeyBinding Key="R" Modifiers="Ctrl" Command="{Binding RequeryCommand}"></KeyBinding>
+        <!--
         <KeyBinding Key="D1" Modifiers="Alt" Command="{Binding OpenAnswerCommand}" CommandParameter="0"></KeyBinding>
         <KeyBinding Key="D2" Modifiers="Alt" Command="{Binding OpenAnswerCommand}" CommandParameter="1"></KeyBinding>
         <KeyBinding Key="D3" Modifiers="Alt" Command="{Binding OpenAnswerCommand}" CommandParameter="2"></KeyBinding>
@@ -42,7 +44,7 @@
         <KeyBinding Key="D6" Modifiers="Alt" Command="{Binding OpenAnswerCommand}" CommandParameter="5"></KeyBinding>
         <KeyBinding Key="D7" Modifiers="Alt" Command="{Binding OpenAnswerCommand}" CommandParameter="6"></KeyBinding>
         <KeyBinding Key="D8" Modifiers="Alt" Command="{Binding OpenAnswerCommand}" CommandParameter="7"></KeyBinding>
-        <KeyBinding Key="D9" Modifiers="Alt" Command="{Binding OpenAnswerCommand}" CommandParameter="8"></KeyBinding>
+        <KeyBinding Key="D9" Modifiers="Alt" Command="{Binding OpenAnswerCommand}" CommandParameter="8"></KeyBinding>-->
     </Window.InputBindings>
     <Border Style="{DynamicResource WindowBorderStyle}">
         <StackPanel Orientation="Vertical">

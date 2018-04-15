@@ -42,14 +42,14 @@
     "Enabled": true
   },
   {
-    "Title": "Baidu",
+    "Title": "百度",
     "ActionKeyword": "baidu",
     "IconPath": "Images/baidu.png",
     "URL": "https://www.baidu.com/s?wd={0}",
     "Enabled": true
   },
   {
-    "Title": "Bilibili",
+    "Title": "哔哩哔哩动画",
     "ActionKeyword": "bilibili",
     "IconPath": "Images/bilibili.png",
     "URL": "https://search.bilibili.com/all?keyword={0}",
@@ -59,6 +59,13 @@
     "Title": "Easyicon",
     "ActionKeyword": "easyicon",
     "URL": "https://www.easyicon.net/iconsearch/{0}/",
+    "Enabled": true
+  },
+  {
+    "Title": "知乎",
+    "ActionKeyword": "zhihu",
+    "IconPath": "Images/zhihu.png",
+    "URL": "https://www.zhihu.com/search?type=content&q={0}",
     "Enabled": true
   }
 ]

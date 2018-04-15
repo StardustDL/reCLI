@@ -45,7 +45,7 @@ namespace reCLI.Plugins.Translator
             });
         }
 
-        public Task<IEnumerable<Answer>> Query(Query query, CancellationToken cancellationToken)
+        public Task<IEnumerable<Answer>> Query(Query query)
         {
             IEnumerable<Answer> iter()
             {
@@ -83,7 +83,7 @@ namespace reCLI.Plugins.Translator
                 };
                 ;
             }
-            return Task.Run(() => iter(),cancellationToken);
+            return Task.Run(() => iter());
         }
 
         public Task Uninitialize()

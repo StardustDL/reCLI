@@ -56,72 +56,103 @@ namespace reCLI.Plugins.FileSearch
                 sourcesPath = Path.Combine(context.PluginDirectory, "settings.json");
                 settings = JsonConvert.DeserializeObject<Settings>(FileIO.ReadText(sourcesPath));
                 paths = new List<string>(settings.Paths.Select(x => Environment.ExpandEnvironmentVariables(x)));
+                invalidChar = Path.GetInvalidFileNameChars();
                 return true;
             });
         }
 
         const int MaxCount = 10;
+        char[] invalidChar;
 
-        public Task<IEnumerable<Answer>> Query(Query query, CancellationToken cancellationToken) => GlobalQuery(query, cancellationToken);
+        public Task<IEnumerable<Answer>> Query(Query query) => GlobalQuery(query);
 
-        public Task<IEnumerable<Answer>> GlobalQuery(Query query, CancellationToken cancellationToken)
+        public Task<IEnumerable<Answer>> GlobalQuery(Query query)
         {
+            bool isfilename(string name)
+            {
+                foreach (var v in invalidChar)
+                {
+                    if (name.Contains(v)) return false;
+                }
+                return true;
+            }
+
             IEnumerable<Answer> iter()
             {
-                string searchText = query.GetTrimedText();
-                foreach(var path in paths)
+                var name = query.GetTrimedText();
+                if (isfilename(name))
                 {
-                    if (!Directory.Exists(path)) continue;
-                    int cnt = 0;
-                    foreach (var s in Directory.EnumerateFiles(path,$"*", SearchOption.TopDirectoryOnly))
+                    yield return new AnswerWithIcon
                     {
-                        var name = Path.GetFileName(s);
-                        int score = StringMatcher.Score(name, searchText);
-                        if (score > 0)
+                        Title = $"搜索文件：{name}",
+                        Icon = icon,
+                        Execute = _ =>
                         {
-                            cnt++;
-                            yield return new AnswerWithIcon
+                            return Task.Run(() =>
                             {
-                                Title = name,
-                                SubTitle = s,
-                                Priority = score,
-                                Icon = CPublic.ToImageSource(System.Drawing.Icon.ExtractAssociatedIcon(s).ToBitmap()),
-                                Execute = _ =>
-                                {
-                                    Process.Start(s);
-                                    return Task.FromResult<Result>(null);
-                                }
-                            };
-                            if (cnt > MaxCount) break;
+                                context.API.PushAnswers(FindFiles(name));
+                                return Result.NotAutoHide;
+                            });
                         }
-                        
+                    };
+                }
+            }
+            return Task.Run(() => iter());
+        }
+
+        IEnumerable<Answer> FindFiles(string searchText)
+        {
+            foreach (var path in paths)
+            {
+                if (!Directory.Exists(path)) continue;
+                int cnt = 0;
+                foreach (var s in Directory.EnumerateFiles(path, $"*", SearchOption.AllDirectories))
+                {
+                    var name = Path.GetFileName(s);
+                    int score = StringMatcher.Score(name, searchText);
+                    if (score > 0)
+                    {
+                        cnt++;
+                        yield return new AnswerWithIcon
+                        {
+                            Title = name,
+                            SubTitle = s,
+                            Priority = score,
+                            Icon = CPublic.ToImageSource(System.Drawing.Icon.ExtractAssociatedIcon(s).ToBitmap()),
+                            Execute = _ =>
+                            {
+                                Process.Start(s);
+                                return Task.FromResult<Result>(null);
+                            }
+                        };
+                        if (cnt > MaxCount) break;
                     }
-                    cnt = 0;
-                    foreach (var s in Directory.EnumerateDirectories(path, $"*", SearchOption.TopDirectoryOnly))
+
+                }
+                cnt = 0;
+                foreach (var s in Directory.EnumerateDirectories(path, $"*", SearchOption.AllDirectories))
+                {
+                    var name = Path.GetFileName(s);
+                    int score = StringMatcher.Score(name, searchText);
+                    if (score > 0)
                     {
-                        var name = Path.GetFileName(s);
-                        int score = StringMatcher.Score(name, searchText);
-                        if (score > 0)
+                        cnt++;
+                        yield return new AnswerWithIcon
                         {
-                            cnt++;
-                            yield return new AnswerWithIcon
+                            Title = name,
+                            SubTitle = s,
+                            Priority = score,
+                            Icon = folder,
+                            Execute = _ =>
                             {
-                                Title = name,
-                                SubTitle = s,
-                                Priority = StringMatcher.Score(name, query.Arguments),
-                                Icon = folder,
-                                Execute = _ =>
-                                {
-                                    Process.Start(s);
-                                    return Task.FromResult<Result>(null);
-                                }
-                            };
-                            if (cnt > MaxCount) break;
-                        }
+                                Process.Start(s);
+                                return Task.FromResult<Result>(null);
+                            }
+                        };
+                        if (cnt > MaxCount) break;
                     }
                 }
             }
-            return Task.Run(() => iter(), cancellationToken);
         }
 
         public Task Uninitialize()

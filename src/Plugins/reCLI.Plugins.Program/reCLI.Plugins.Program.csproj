@@ -4,19 +4,21 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{80EF75CC-07F0-4384-B6EF-2F146669B2E5}</ProjectGuid>
+    <ProjectGuid>{61024CFC-E1FB-42C9-AFDD-DB4447EE0018}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>reCLI.Plugins.WebSearch</RootNamespace>
-    <AssemblyName>reCLI.Plugins.WebSearch</AssemblyName>
+    <RootNamespace>reCLI.Plugins.Program</RootNamespace>
+    <AssemblyName>reCLI.Plugins.Program</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\build\Debug\Data\Plugins\WebSearch\</OutputPath>
+    <OutputPath>..\..\..\build\Debug\Data\Plugins\Program\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -24,19 +26,20 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\..\build\Release\Data\Plugins\WebSearch\</OutputPath>
+    <OutputPath>..\..\..\build\Release\Data\Plugins\Program\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="PresentationCore" />
+    <Reference Include="ShObjIdlTlb">
+      <HintPath>..\..\..\resources\dlls\ShObjIdlTlb.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Web" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,22 +49,21 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Main.cs" />
+    <Compile Include="Library\CPublic.cs" />
+    <Compile Include="Library\IProgram.cs" />
+    <Compile Include="Library\Win32.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SearchSource.cs" />
+    <Compile Include="Main.cs" />
+    <Compile Include="Settings.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
     <None Include="plugin.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="sources.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\reCLI.Core\reCLI.Core.csproj">
-      <Project>{46EBCB5B-89CA-4616-BC99-100880ACB1CB}</Project>
+      <Project>{46ebcb5b-89ca-4616-bc99-100880acb1cb}</Project>
       <Name>reCLI.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\reCLI.Plugin.UI\reCLI.Plugin.UI.csproj">
@@ -69,47 +71,10 @@
       <Name>reCLI.Plugin.UI</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\reCLI.Plugin\reCLI.Plugin.csproj">
-      <Project>{D6F0384D-A790-4BC1-A6F4-2D84DCF1E576}</Project>
+      <Project>{d6f0384d-a790-4bc1-a6f4-2d84dcf1e576}</Project>
       <Name>reCLI.Plugin</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="Images\bing.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Images\github.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Images\google.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Images\stackoverflow.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Images\web_search.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Images\wiki.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Images\wolframalpha.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Images\baidu.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Images\bilibili.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Images\zhihu.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

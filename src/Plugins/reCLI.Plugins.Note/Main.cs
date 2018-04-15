@@ -54,7 +54,7 @@ namespace reCLI.Plugins.Note
             });
         }
 
-        public Task<IEnumerable<Answer>> Query(Query query, CancellationToken cancellationToken)
+        public Task<IEnumerable<Answer>> Query(Query query)
         {
             IEnumerable<Answer> iter()
             {
@@ -82,7 +82,7 @@ namespace reCLI.Plugins.Note
                         Priority = StringMatcher.Score(curnote, query.Arguments),
                         Execute = _ =>
                         {
-                            if (_.SpecialKeyState.CtrlPressed)//delete
+                            if (_.InvokeKeys == InvokeKey.CtrlEnter)//delete
                             {
                                 Notes.Remove(curnote);
                                 context.API.ChangeQuery(query.RawText);
@@ -97,7 +97,7 @@ namespace reCLI.Plugins.Note
                     };
                 }
             }
-            return Task.Run(() => iter(), cancellationToken);
+            return Task.Run(() => iter());
         }
 
         public Task Uninitialize()

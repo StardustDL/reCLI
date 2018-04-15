@@ -60,7 +60,7 @@ namespace reCLI.Plugins.Music
             });
         }
 
-        public Task<IEnumerable<Answer>> Query(Query query, CancellationToken cancellationToken)
+        public Task<IEnumerable<Answer>> Query(Query query)
         {
             if (LastPlayerProcess == null || LastPlayerProcess.HasExited) LastPlayerProcess = Process.Start(new ProcessStartInfo(Path.Combine(context.PluginDirectory, playerCLI)) { UseShellExecute = false, CreateNoWindow = true, RedirectStandardInput = true });
             IEnumerable<Answer> iter()
@@ -139,47 +139,63 @@ namespace reCLI.Plugins.Music
                     default:
                         if (query.Terms[1] == "find")
                         {
-                            context.API.Busying();
                             var name = String.Concat(query.Terms.Skip(2));
-                            if (!String.IsNullOrEmpty(name))
+                            yield return new Answer
                             {
-                                var musres = worker.Search(name, 10);
-                                if (musres.Code == 200)
+                                Title = $"查找：{name}",
+                                Execute = _ =>
                                 {
-                                    lastSearchSongs = musres.Result.Songs;
-                                   foreach(var v in lastSearchSongs)
+                                    return Task.Run(() =>
                                     {
-                                        v.ShortAr = String.Join("/", v.Ar.Select(x => x.Name));
-                                        BitmapImage s=null;
-                                        context.API.UIThreadWork(() => s = new BitmapImage(new Uri(v.Al.PicUrl)));
-                                        yield return new AnswerWithIcon
+                                        context.API.Busying();
+                                        IEnumerable<Answer> search()
                                         {
-                                            Title = v.Name,
-                                            SubTitle = $"{v.ShortAr} 的专辑《{v.Al.Name}》",
-                                            Icon = s,
-                                            Execute = _ =>
+                                            if (!String.IsNullOrEmpty(name))
                                             {
-                                                return Task.Run<Result>(() =>
+                                                var musres = worker.Search(name, 10);
+                                                if (musres.Code == 200)
                                                 {
-                                                    StartPlaying(worker.GetSongsUrl(new long[] { v.Id }).Data[0].Url);
-                                                    return (Result)null;
-                                                });
+                                                    lastSearchSongs = musres.Result.Songs;
+                                                    foreach (var v in lastSearchSongs)
+                                                    {
+                                                        v.ShortAr = String.Join("/", v.Ar.Select(x => x.Name));
+                                                        BitmapImage s = null;
+                                                        context.API.UIThreadWork(() => s = new BitmapImage(new Uri(v.Al.PicUrl)));
+                                                        yield return new AnswerWithIcon
+                                                        {
+                                                            Title = v.Name,
+                                                            SubTitle = $"{v.ShortAr} 的专辑《{v.Al.Name}》",
+                                                            Icon = s,
+                                                            Execute = __ =>
+                                                            {
+                                                                return Task.Run<Result>(() =>
+                                                                {
+                                                                    StartPlaying(worker.GetSongsUrl(new long[] { v.Id }).Data[0].Url);
+                                                                    //StartPlaying($"http://music.163.com/song/media/outer/url?id={v.Id}.mp3");
+                                                                    return (Result)null;
+                                                                });
+                                                            }
+                                                        };
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    context.API.ShowMessage($"查找失败，返回代码：{musres.Code}", TimeSpan.FromSeconds(1), MessageIcon.Error);
+                                                }
                                             }
-                                        };
-                                    }
+                                        }
+                                        context.API.PushAnswers(search());
+                                        context.API.Unbusying();
+                                        return Result.NotAutoHide;
+                                    });
                                 }
-                                else
-                                {
-                                    context.API.ShowMessage($"查找失败，返回代码：{musres.Code}", TimeSpan.FromSeconds(1), MessageIcon.Error);
-                                }
-                            }
-                            context.API.Unbusying();
+                            };
                         }
                         break;
                 }
             }
 
-            return Task.Run(() => iter(), cancellationToken);
+            return Task.Run(() => iter());
         }
 
         public Task Uninitialize()

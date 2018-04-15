@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "reCLI.Plugins.Calculator", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "reCLI.Plugins.Music", "Plugins\reCLI.Plugins.Music\reCLI.Plugins.Music.csproj", "{96CC8D4C-75B7-40AC-8567-69A2DFE83209}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "reCLI.Plugins.Program", "Plugins\reCLI.Plugins.Program\reCLI.Plugins.Program.csproj", "{61024CFC-E1FB-42C9-AFDD-DB4447EE0018}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -95,6 +97,10 @@ Global
 		{96CC8D4C-75B7-40AC-8567-69A2DFE83209}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{96CC8D4C-75B7-40AC-8567-69A2DFE83209}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{96CC8D4C-75B7-40AC-8567-69A2DFE83209}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61024CFC-E1FB-42C9-AFDD-DB4447EE0018}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61024CFC-E1FB-42C9-AFDD-DB4447EE0018}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61024CFC-E1FB-42C9-AFDD-DB4447EE0018}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61024CFC-E1FB-42C9-AFDD-DB4447EE0018}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -109,6 +115,7 @@ Global
 		{DDBC7C5C-D3D9-4B3E-8B80-8DBB8A273A1D} = {F5B25E6A-997C-4D7B-8DEF-CB9443EE557C}
 		{1474F7FE-E673-466C-BA5F-390D46FC41AB} = {F5B25E6A-997C-4D7B-8DEF-CB9443EE557C}
 		{96CC8D4C-75B7-40AC-8567-69A2DFE83209} = {F5B25E6A-997C-4D7B-8DEF-CB9443EE557C}
+		{61024CFC-E1FB-42C9-AFDD-DB4447EE0018} = {F5B25E6A-997C-4D7B-8DEF-CB9443EE557C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F89B9746-F898-4B8A-A6A9-F6EE25C4619E}

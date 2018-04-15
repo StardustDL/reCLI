@@ -76,10 +76,12 @@ namespace reCLI
             new MainViewModel();
 
             var window = new MainWindow();
-            await PluginManager.InitializePlugins(x=>new PublicAPIInstance(x.ID));
-
             Current.MainWindow = window;
             Current.MainWindow.Title = reCLIName;
+
+            MainViewModel.Current.ShowProgressBar();
+            await PluginManager.InitializePlugins(x=>new PublicAPIInstance(x.ID));
+            MainViewModel.Current.HideProgressBar();
 
             RegisterExitEvents();
 
@@ -220,12 +222,13 @@ namespace reCLI
         #region IDisposable Support
         private bool disposedValue = false; // 要检测冗余调用
 
-        protected virtual void Dispose(bool disposing)
+        protected virtual async void Dispose(bool disposing)
         {
             if (!disposedValue)
             {
                 if (disposing)
                 {
+                    await PluginManager.UninitializePlugins();
                     _notifyIcon.Visible = false;
                     // TODO: 释放托管状态(托管对象)。
                 }

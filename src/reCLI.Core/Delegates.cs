@@ -15,7 +15,16 @@ namespace reCLI.Core
 
     public class ActionContext
     {
-        public SpecialKeyState SpecialKeyState { get; set; }
+        public InvokeKey InvokeKeys { get; set; }
+    }
+
+    public enum InvokeKey
+    {
+        Enter,
+        CtrlEnter,
+        ShiftEnter,
+        AltEnter,
+        WinEnter,
     }
 
     public class SpecialKeyState

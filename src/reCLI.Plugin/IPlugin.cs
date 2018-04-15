@@ -21,6 +21,6 @@ namespace reCLI.Plugin
 
         Task Uninitialize();
 
-        Task<IEnumerable<Answer>> Query(Query query, CancellationToken cancellationToken);
+        Task<IEnumerable<Answer>> Query(Query query);
     }
 }

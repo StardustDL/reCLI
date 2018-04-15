@@ -32,13 +32,11 @@ namespace HelloWorld
             return Task.Run(() =>
             {
                 this.context = context;
-                icon = new BitmapImage(new Uri(Path.Combine(context.PluginDirectory, "app.png"))); ;
-                icon.Freeze();
                 return true;
             });
         }
 
-        public Task<IEnumerable<Answer>> Query(Query query, CancellationToken cancellationToken)
+        public Task<IEnumerable<Answer>> Query(Query query)
         {
             return Task.Run(() =>
             {
@@ -51,7 +49,7 @@ namespace HelloWorld
                     Execute = _ => { context.API.ShowMessage("Hello World, " + query.Arguments, TimeSpan.FromSeconds(2), MessageIcon.Success); return Task.FromResult(Result.NotAutoHide); }
                 };
                 return (IEnumerable<Answer>)(new Answer[] { result });
-            },cancellationToken);
+            });
         }
 
         public Task Uninitialize()

@@ -11,6 +11,6 @@ namespace reCLI.Plugin
 
     public interface IGlobalQuery : IFeatures
     {
-        Task<IEnumerable<Answer>> GlobalQuery(Query query, CancellationToken cancellationToken);
+        Task<IEnumerable<Answer>> GlobalQuery(Query query);
     }
 }

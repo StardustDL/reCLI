@@ -60,7 +60,7 @@ namespace reCLI.ViewModel
 
         #region Properties
 
-        public int MaxHeight => MaxAnswers * 50;
+        public int MaxHeight => MaxAnswers * 50+3+5;
 
         public int SelectedIndex { get; set; }
 

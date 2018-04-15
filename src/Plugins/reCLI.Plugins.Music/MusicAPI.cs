@@ -690,8 +690,7 @@ namespace reCLI.Plugins.Music.Library
             public SongUrls GetSongsUrl(long[] song_id, long bitrate = 999000)
             {
                 string url = "http://music.163.com/weapi/song/enhance/player/url?csrf_token=";
-
-
+                
                 var data = new GetSongUrlJson
                 {
                     ids = song_id,
@@ -704,7 +703,15 @@ namespace reCLI.Plugins.Music.Library
                 return deserialedObj;
             }
 
+            /*public SongUrls GetSongsUrl(long id)
+            {
+                string url = $"http://musicapi.leanapp.cn/music/url?id={id}";
 
+                string raw = CURL(url,new Dictionary<string, string>(),"GET");
+
+                var deserialedObj = JsonConvert.DeserializeObject<SongUrls>(raw);
+                return deserialedObj;
+            }*/
 
             public PlayListResult Playlist(long playlist_id)
             {

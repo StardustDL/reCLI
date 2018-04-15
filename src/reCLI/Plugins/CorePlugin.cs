@@ -3,6 +3,7 @@ using reCLI.Infrastructure;
 using reCLI.Plugin;
 using reCLI.Plugin.UI;
 using reCLI.Resources;
+using reCLI.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,24 +43,28 @@ namespace reCLI.Plugins
 
         internal PluginContext Context;
 
+        List<string> History { get; set; }
+
         public Task<bool> Initialize(PluginContext context)
         {
             return Task.Run(() =>
             {
                 this.Context = context;
+                MainViewModel.Current.RealCalled += Current_RealCalled;
+                History = new List<string>();
                 acceptQuery = new Dictionary<string, Answer>
                 {
                     [":exit"] = new AnswerWithIcon
                     {
                         Title = "退出 reCLI",
                         OriginalQuery=":exit",
-                        Icon = Images.App,
+                        Icon = Images.Exit,
                         Execute = _ => { App.Current.MainWindow.Close(); return Task.FromResult<Result>(null); }
                     },
                     [":plugins"] = new AnswerWithIcon
                     {
                         Title = "查看所有插件",
-                        Icon = Images.App,
+                        Icon = Images.AllPlugins,
                         OriginalQuery = ":plugins",
                         Execute = _ =>
                         {
@@ -85,15 +90,46 @@ namespace reCLI.Plugins
                             context.API.PushAnswers(answers);
                             return Task.FromResult(Result.NotAutoHide);
                         }
+                    },
+                    [":history"] = new AnswerWithIcon
+                    {
+                        Title = "历史",
+                        Icon = Images.History,
+                        OriginalQuery = ":history",
+                        Execute = _ =>
+                        {
+                            List<Answer> answers = new List<Answer>();
+                            for(int i=History.Count-1;i>=0;i--)
+                            {
+                                var v = History[i];
+                                var ans = new AnswerWithIcon
+                                {
+                                    Title = $"执行命令：{v}",
+                                    OriginalQuery = v,
+                                    Icon = Images.History
+                                };
+                                answers.Add(ans);
+                            }
+                            context.API.PushAnswers(answers);
+                            return Task.FromResult(new Result(false) { IsRealCall = false });
+                        }
                     }
                 };
                 return true;
             });
         }
 
-        public Task<IEnumerable<Answer>> Query(Query query, CancellationToken cancellationToken) => GlobalQuery(query,cancellationToken);
+        private void Current_RealCalled(object sender, (Answer,string) e)
+        {
+            if (!String.IsNullOrEmpty(e.Item2))
+            {
+                History.Add(e.Item2);
+            }
+        }
 
-        public Task<IEnumerable<Answer>> GlobalQuery(Query query, CancellationToken cancellationToken)
+        public Task<IEnumerable<Answer>> Query(Query query) => GlobalQuery(query);
+
+        public Task<IEnumerable<Answer>> GlobalQuery(Query query)
         {
             IEnumerable<Answer> _()
             {
@@ -109,7 +145,7 @@ namespace reCLI.Plugins
                 }
             }
 
-            return Task.Run(() => _(),cancellationToken);
+            return Task.Run(() => _());
         }
 
         public Task Uninitialize()

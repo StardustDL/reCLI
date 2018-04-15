@@ -1,0 +1,10 @@
+﻿{
+  "ID": "{guid}",
+  "Name": "{pluginName}",
+  "Description": "{pluginDes}",
+  "Author": "{onwer}",
+  "Version": "1.0.0",
+  "Website": "https://github.com/StardustDL",
+  "ExecuteFileName": "reCLI.Plugins.{pluginName}.dll",
+  "PluginTypes": [ "reCLI.Plugins.{pluginName}.Main" ]
+}
