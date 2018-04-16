@@ -20,7 +20,13 @@
 
 # Usage
 
+![](http://osyor26xu.bkt.clouddn.com/reCLI.gif)
+
+See [wiki](https://github.com/StardustDL/reCLI/wiki)
+
 ## Install
+
+Download at release page and unzip the file, then execute `reCLI.exe`.
 
 # Dependencies
 
