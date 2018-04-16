@@ -113,6 +113,17 @@ namespace reCLI.Plugins
                             context.API.PushAnswers(answers);
                             return Task.FromResult(new Result(false) { IsRealCall = false });
                         }
+                    },
+                    [":settings"] = new AnswerWithIcon
+                    {
+                        Title = "设置",
+                        Icon = Images.Settings,
+                        OriginalQuery = ":settings",
+                        Execute = _ =>
+                        {
+                            Helpers.SingletonWindowOpener.Open<WinSettings>();
+                            return Task.FromResult<Result>(null);
+                        }
                     }
                 };
                 return true;

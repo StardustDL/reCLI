@@ -44,6 +44,7 @@ namespace reCLI.ViewModel
             Tip = new TipViewModel();
             globalPlugin = App.PluginManager.GetPluginsForFeature<IGlobalQuery>();
             TipVisibility = Visibility.Collapsed;
+            ProgressBarVisibility = Visibility.Collapsed;
 
 #if DEBUG
 #else

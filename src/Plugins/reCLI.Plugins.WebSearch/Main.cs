@@ -18,7 +18,7 @@ using System.Windows.Media.Imaging;
 
 namespace reCLI.Plugins.WebSearch
 {
-    public class Main : IPluginWithIcon,IGlobalQuery
+    public class Main : IPluginWithIcon,IGlobalQuery,ISettable
     {
         PluginContext context;
 
@@ -38,6 +38,10 @@ namespace reCLI.Plugins.WebSearch
         public ImageSource Icon => icon;
 
         public string Keyword => null;
+
+        System.Windows.Controls.Button btnSettings;
+
+        public UIElement SettingPage => btnSettings;
 
         Dictionary<string, Answer> acceptQuery;
 
@@ -88,6 +92,8 @@ namespace reCLI.Plugins.WebSearch
                 _sources = JsonConvert.DeserializeObject<List<SearchSource>>(FileIO.ReadText(sourcesPath));
                 sources = new Dictionary<string, SearchSource>();
                 acceptQuery = new Dictionary<string, Answer>();
+                context.API.UIThreadWork(() => btnSettings = new System.Windows.Controls.Button { Content = "编辑配置文件", FontSize = 20 });
+                btnSettings.Click += (sender, e) => { System.Diagnostics.Process.Start(sourcesPath); };
                 foreach (var v in _sources)
                 {
                     v.Image = new BitmapImage(new Uri(Path.Combine(context.PluginDirectory, v.IconPath)));

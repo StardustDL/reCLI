@@ -1,0 +1,42 @@
+﻿<Window x:Class="reCLI.WinSettings"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:reCLI"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        mc:Ignorable="d"
+        Title="reCLI 设置" Height="450" Width="800">
+    <DockPanel LastChildFill="True">
+        <ListBox DockPanel.Dock="Left" ItemsSource="{Binding Plugins}" x:Name="ltbPlugins" Margin="5">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5"
+                          Cursor="Hand" UseLayoutRounding="False">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="32" />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="0" />
+                                </Grid.ColumnDefinitions>
+                                <Image Width="32" Height="32" HorizontalAlignment="Left"
+                               Source="{Binding Icon}" />
+                                <Grid Margin="5 0 5 0" Grid.Column="1" HorizontalAlignment="Stretch">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock FontSize="20"
+                                       VerticalAlignment="Center" ToolTip="{Binding Name}"
+                                       Text="{Binding Name}"/>
+                                    <TextBlock FontSize="16" ToolTip="{Binding Description}"
+                                       Grid.Row="1" Text="{Binding Description}"/>
+                                </Grid>
+                            </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <ContentControl Content="{Binding ElementName=ltbPlugins,Path=SelectedItem.SettingPage}">
+            
+        </ContentControl>
+    </DockPanel>
+</Window>

@@ -2,6 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <SignAssembly>false</SignAssembly>
+    <AssemblyOriginatorKeyFile>StardustDL-reCLI.pfx</AssemblyOriginatorKeyFile>
+    <Authors>StardustDL</Authors>
+    <Company>StardustDL</Company>
+    <Copyright>Copyright © StardustDL 2018</Copyright>
+    <Description>reCLI 核心基础类库</Description>
+    <DelaySign>false</DelaySign>
   </PropertyGroup>
 
   <ItemGroup>

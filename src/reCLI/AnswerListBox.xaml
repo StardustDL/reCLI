@@ -40,7 +40,7 @@
                                 <RowDefinition />
                                 <RowDefinition Height="Auto" x:Name="SubTitleRowDefinition" />
                             </Grid.RowDefinitions>
-                            <TextBlock Style="{DynamicResource ItemTitleStyle}" DockPanel.Dock="Left"
+                            <TextBlock Style="{DynamicResource ItemTitleStyle}"
                                        VerticalAlignment="Center" ToolTip="{Binding Answer.Title}"
                                        Text="{Binding Answer.Title}" x:Name="Title"/>
                             <TextBlock Style="{DynamicResource ItemSubTitleStyle}" ToolTip="{Binding Answer.SubTitle}"

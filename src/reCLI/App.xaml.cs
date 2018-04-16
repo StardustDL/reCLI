@@ -1,4 +1,4 @@
-﻿using reCLI.Helper;
+﻿using reCLI.Helpers;
 using reCLI.Infrastructure;
 using reCLI.Infrastructure.Plugins;
 using reCLI.Resources;
@@ -81,6 +81,7 @@ namespace reCLI
 
             MainViewModel.Current.ShowProgressBar();
             await PluginManager.InitializePlugins(x=>new PublicAPIInstance(x.ID));
+            new SettingsViewModel();
             MainViewModel.Current.HideProgressBar();
 
             RegisterExitEvents();
@@ -138,7 +139,7 @@ namespace reCLI
 
 #endregion
 
-#region Register Events
+        #region Register Events
         private void RegisterExitEvents()
         {
             AppDomain.CurrentDomain.ProcessExit += (s, e) => Dispose();

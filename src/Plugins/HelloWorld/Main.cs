@@ -11,19 +11,15 @@ using System.Windows.Media.Imaging;
 
 namespace HelloWorld
 {
-    public class Main : IPluginWithIcon
+    public class Main : IPlugin
     {
         PluginContext context;
-
-        ImageSource icon;
 
         public Guid ID { get => context.ID; }
 
         public string Name { get => "Hello World"; }
 
         public string Description { get => "Hello World"; }
-
-        public ImageSource Icon => icon;
 
         public string Keyword => "hw";
 
@@ -40,12 +36,11 @@ namespace HelloWorld
         {
             return Task.Run(() =>
             {
-                var result = new AnswerWithIcon
+                var result = new Answer
                 {
                     Title = "Hello World",
                     SubTitle = $"Query: {query.Arguments}",
                     OriginalQuery = $"hw {query.Arguments}",
-                    Icon = icon,
                     Execute = _ => { context.API.ShowMessage("Hello World, " + query.Arguments, TimeSpan.FromSeconds(2), MessageIcon.Success); return Task.FromResult(Result.NotAutoHide); }
                 };
                 return (IEnumerable<Answer>)(new Answer[] { result });

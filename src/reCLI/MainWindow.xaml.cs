@@ -34,6 +34,7 @@ namespace reCLI
         {
             DataContext = MainViewModel.Current;
             InitializeComponent();
+            
         }
 
         private void OnLoaded(object sender, RoutedEventArgs _)
@@ -41,7 +42,7 @@ namespace reCLI
             // todo is there a way to set blur only once?
             BlurWindowHelper.SetBlurForWindow();
             WindowsInteropHelper.DisableControlBox(this);
-            InitProgressbarAnimation();
+            //InitProgressbarAnimation();
             InitializePosition();
             // since the default main window visibility is visible
             // so we need set focus during startup
@@ -73,7 +74,7 @@ namespace reCLI
             Left = WindowLeft();
         }
 
-        private void InitProgressbarAnimation()
+        /*private void InitProgressbarAnimation()
         {
             var da = new DoubleAnimation(ProgressBar.X2, ActualWidth + 100, new Duration(new TimeSpan(0, 0, 0, 0, 1600)));
             var da1 = new DoubleAnimation(ProgressBar.X1, ActualWidth, new Duration(new TimeSpan(0, 0, 0, 0, 1600)));
@@ -83,8 +84,7 @@ namespace reCLI
             _progressBarStoryboard.Children.Add(da1);
             _progressBarStoryboard.RepeatBehavior = RepeatBehavior.Forever;
             ProgressBar.BeginStoryboard(_progressBarStoryboard);
-            MainViewModel.Current.ProgressBarVisibility = Visibility.Hidden;
-        }
+        }*/
 
         private void OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {

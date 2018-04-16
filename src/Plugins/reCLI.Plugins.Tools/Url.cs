@@ -107,7 +107,7 @@ namespace reCLI.Plugins.Tools
                             try
                             {
                                 System.Diagnostics.Process.Start(raw);
-                                return null;
+                                return Task.FromResult<Result>(null);
                             }
                             catch
                             {

@@ -3,6 +3,7 @@ using reCLI.Core;
 using reCLI.Core.Helpers;
 using reCLI.Plugin;
 using reCLI.Plugin.UI;
+using reCLI.Plugins.FileSearch.UI;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -20,7 +21,7 @@ using System.Windows.Media.Imaging;
 
 namespace reCLI.Plugins.FileSearch
 {
-    public class Main : IPluginWithIcon, IGlobalQuery
+    public class Main : IPluginWithIcon, IGlobalQuery, Plugin.UI.ISettable
     {
         PluginContext context;
 
@@ -28,9 +29,7 @@ namespace reCLI.Plugins.FileSearch
 
         ImageSource folder;
 
-        Settings settings;
-
-        List<string> paths;
+        static List<string> paths;
 
         string sourcesPath = null;
 
@@ -44,6 +43,14 @@ namespace reCLI.Plugins.FileSearch
 
         public string Keyword => null;
 
+        public UIElement SettingPage { get; private set; }
+
+        internal static void LoadPaths()
+        {
+            paths.Clear();
+            paths.AddRange(Settings.Current.Paths.Select(x => Environment.ExpandEnvironmentVariables(x)));
+        }
+
         public Task<bool> Initialize(PluginContext context)
         {
             return Task.Run(() =>
@@ -54,8 +61,10 @@ namespace reCLI.Plugins.FileSearch
                 folder= new BitmapImage(new Uri(Path.Combine(context.PluginDirectory, "Images/folder.png")));
                 folder.Freeze();
                 sourcesPath = Path.Combine(context.PluginDirectory, "settings.json");
-                settings = JsonConvert.DeserializeObject<Settings>(FileIO.ReadText(sourcesPath));
-                paths = new List<string>(settings.Paths.Select(x => Environment.ExpandEnvironmentVariables(x)));
+                Settings.Current = JsonConvert.DeserializeObject<Settings>(FileIO.ReadText(sourcesPath));
+                paths = new List<string>();
+                LoadPaths();
+                context.API.UIThreadWork(() => SettingPage = new SettingPage());
                 invalidChar = Path.GetInvalidFileNameChars();
                 return true;
             });
@@ -157,6 +166,7 @@ namespace reCLI.Plugins.FileSearch
 
         public Task Uninitialize()
         {
+            FileIO.WriteText(sourcesPath,JsonConvert.SerializeObject(Settings.Current));
             return Task.CompletedTask;
         }
     }

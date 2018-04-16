@@ -62,10 +62,7 @@
                     </ContextMenu>
                 </TextBox.ContextMenu>
             </TextBox>
-            <Line x:Name="ProgressBar" HorizontalAlignment="Right"
-                  Style="{DynamicResource PendingLineStyle}" Visibility="{Binding ProgressBarVisibility, Mode=TwoWay}" 
-                  Y1="0" Y2="0" X2="100" Height="2" StrokeThickness="1">
-            </Line>
+            <ProgressBar IsIndeterminate="True" Visibility="{Binding ProgressBarVisibility}" Height="2" Foreground="#FF1BA1E2" Background="{x:Null}" BorderBrush="{x:Null}" BorderThickness="0"></ProgressBar>
             <ContentControl Visibility="{Binding TipVisibility}">
                 <StackPanel Orientation="Horizontal" DataContext="{Binding Tip}">
                     <Image Source="{Binding Icon}" Stretch="Uniform" Height="{Binding ElementName=tbkTip, Path=ActualHeight}"></Image>

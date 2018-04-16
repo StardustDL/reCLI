@@ -67,12 +67,16 @@ namespace reCLI.Plugins.Program
         {
             IEnumerable<Answer> iter()
             {
-                lock (IndexLock)
+                if (_win32s != null)
                 {
-                    var results1 = _win32s.AsParallel().Select(p => p.Result(query.RawText));
-                    var result = results1.Where(r => r.Priority > 0);
-                    return result;
+                    lock (IndexLock)
+                    {
+                        var results1 = _win32s.AsParallel().Select(p => p.Result(query.RawText));
+                        var result = results1.Where(r => r.Priority > 0);
+                        return result;
+                    }
                 }
+                return null;
             }
 
             return Task.Run(() => iter());
